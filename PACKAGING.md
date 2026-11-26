@@ -34,8 +34,7 @@ Extra tools by system:
 
 ## Automatic builds for every system
 
-`.github/workflows/release.yml` builds all installers on GitHub's Windows, macOS (Apple
-Silicon and Intel) and Linux machines. Put this folder in a GitHub repository, then either:
+`.github/workflows/release.yml` builds all installers on GitHub's Windows, macOS (Apple Silicon) and Linux machines. Put this folder in a GitHub repository, then either:
 - push a version tag such as `v0.1.0`: the installers are attached to a new GitHub Release
   that people can download from, or
 - run the "Release installers" workflow by hand from the Actions tab: the installers appear

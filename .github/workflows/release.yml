@@ -18,10 +18,8 @@ jobs:
         include:
           - name: windows
             os: windows-latest
-          - name: macos-apple-silicon
-            os: macos-14
-          - name: macos-intel
-            os: macos-13
+          - name: macos
+            os: macos-latest
           - name: linux
             os: ubuntu-22.04
     runs-on: ${{ matrix.os }}

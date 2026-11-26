@@ -1,5 +1,8 @@
 # Moving CoinCraft to GitHub
 
+CoinCraft is published at <https://github.com/cwoodruff/coincraft> (public, MIT License).
+The steps below are kept for reference, for example to set up a copy under another account.
+
 ## Already done in this folder
 
 - **`README.md`**: what CoinCraft is, how to run and test it, and where data is kept.
