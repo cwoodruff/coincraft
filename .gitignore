@@ -1,6 +1,7 @@
 # Build output (large, and rebuilt from the source)
 /target
 /dist
+debug
 
 # Test pictures and anything a local run writes here
 /shots
@@ -10,6 +11,12 @@
 *.db-journal
 *.db-wal
 *.db-shm
+
+# Rust tool leftovers: rustfmt backups, Windows debug symbols, cargo-mutants data, compiler crash reports
+**/*.rs.bk
+*.pdb
+**/mutants.out*/
+rustc-ice-*.txt
 
 # Editor and system files
 .DS_Store
