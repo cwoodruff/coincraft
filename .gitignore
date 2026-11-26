@@ -1,0 +1,19 @@
+# Build output (large, and rebuilt from the source)
+/target
+/dist
+
+# Test pictures and anything a local run writes here
+/shots
+
+# Local databases, in case one is ever pointed at this folder (COINCRAFT_DB)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Editor and system files
+.DS_Store
+.claude/
+.vscode/
+.idea/
+*.swp

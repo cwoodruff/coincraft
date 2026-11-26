@@ -1,0 +1,79 @@
+[package]
+name = "coincraft"
+version = "0.1.0"
+edition = "2021"
+description = "Personal finance: spending, budgets, recurring charges, savings goals and net worth, kept on your own computer."
+build = "build.rs"
+license = "MIT"
+repository = "https://github.com/cwoodruff/coincraft"
+homepage = "https://github.com/cwoodruff/coincraft"
+authors = ["Chris Woody Woodruff"]
+
+[dependencies]
+eframe = { version = "0.29", features = ["persistence"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+# Encrypted vault for saved logins.
+argon2 = "0.5"
+chacha20poly1305 = "0.10"
+# Bank sync over HTTPS, only when the person connects or syncs.
+ureq = "2"
+base64 = "0.22"
+chrono = { version = "0.4", features = ["serde"] }
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+winit = "0.30"
+
+[dev-dependencies]
+# The icon generator (examples/make_icons.rs) also writes a Windows .ico.
+image = { version = "0.25", default-features = false, features = ["png", "ico"] }
+
+# Puts the icon and product details into the Windows .exe (does nothing on other systems).
+[target.'cfg(windows)'.build-dependencies]
+winresource = "0.1"
+
+# Installers: `cargo packager --release` (see PACKAGING.md).
+# Builds .app/.dmg on macOS, .exe (NSIS) and .msi on Windows, .deb and AppImage on Linux.
+[package.metadata.packager]
+product-name = "CoinCraft"
+# Change to a reverse domain you own before publishing (it identifies the app to each system).
+identifier = "app.coincraft.desktop"
+category = "Finance"
+description = "Personal finance: spending, budgets, recurring charges, savings goals and net worth, kept on your own computer."
+copyright = "Copyright © 2026 Chris Woody Woodruff. MIT License."
+before-packaging-command = "cargo build --release"
+out-dir = "dist"
+icons = [
+    "assets/icons/32x32.png",
+    "assets/icons/128x128.png",
+    "assets/icons/128x128@2x.png",
+    "assets/icons/256x256.png",
+    "assets/icons/512x512.png",
+    "assets/icons/icon.ico",
+]
+binaries = [{ path = "coincraft", main = true }]
+
+[package.metadata.packager.macos]
+minimum-system-version = "11.0"
+
+[package.metadata.packager.deb]
+# Libraries the window needs on Debian and Ubuntu.
+depends = ["libgl1", "libxkbcommon0", "libxkbcommon-x11-0", "libx11-6", "libxcursor1", "libxrandr2", "libxi6", "libwayland-client0"]
+
+[package.metadata.packager.nsis]
+# Installs for the current user, so no administrator rights are needed.
+installer-mode = "currentUser"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
